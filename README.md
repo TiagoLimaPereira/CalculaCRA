@@ -1,4 +1,4 @@
-CRIEI AQUI SO P CALCULAR MEU CRA ENQUANTO OS PROF NAO FECHA AS TURMAS
-VOU USAR TODO FIM DE PERIODO AGORA
-PODE USAR TBM
-VLW FLW
+Aplicativo para cálculo de CRA
+Lê um arquivo .txt com a seguinte informação em cada linha:
+"turma, media, créditos"
+// atualizar e refazer algumas partes, não funciona na nova versão do java //
