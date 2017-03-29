@@ -12,8 +12,6 @@ public class Calcula {
 	private String caminho;
 
 	public Calcula(String caminho) {
-		notas_disc = new ArrayList<Double>();
-		creditos = new ArrayList<Integer>();
 		this.caminho = caminho;
 	}
 
@@ -32,8 +30,12 @@ public class Calcula {
 		}
 	}
 
+	// os arrayLists sao inicializados aqui pois se nao forem
+	// a cada solicitacao de calcular cra vai acumular as disciplinas e as notas
+	// gerando um calculo errado
 	public String leArquivo() throws Exception, IOException {
-
+		notas_disc = new ArrayList<Double>();
+		creditos = new ArrayList<Integer>();
 		BufferedReader in = new BufferedReader(new FileReader(this.caminho));
 		String linha;
 
