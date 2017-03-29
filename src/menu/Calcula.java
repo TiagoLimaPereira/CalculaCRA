@@ -81,11 +81,14 @@ public class Calcula {
 	}
 
 	public String toString() {
-
+		
 		String cra = String.format("CRA: %.2f", calculo(this.getNotas_disc(), this.getCreditos()));
-		return "Disciplinas: " + getCreditos().size() + LINHA + "Total de creditos: " + totalCreditos() + LINHA
-				+ "Total de horas: " + horas() + LINHA + cra + LINHA;
-
+		String disciplinas = "Disciplinas: " + getCreditos().size();
+		String totalCreditos = "Total de creditos: " + totalCreditos();
+		String totalHoras = "Total de horas: " + horas();
+		
+		return disciplinas + LINHA + totalCreditos + LINHA
+				+ totalHoras + LINHA + cra + LINHA;
 	}
 
 	public List<Double> getNotas_disc() {
