@@ -5,69 +5,85 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Calcula {
-	
+
 	private final String LINHA = System.lineSeparator();
 	private List<Double> notas_disc;
 	private List<Integer> creditos;
 	private String caminho;
-	
-	public Calcula(String caminho){
-		this.caminho = caminho;	
+
+	public Calcula(String caminho) {
+		notas_disc = new ArrayList<Double>();
+		creditos = new ArrayList<Integer>();
+		this.caminho = caminho;
 	}
-	
-	public double calculo(List<Double> notas_disc, List<Integer> creditos){
+
+	public double calculo(List<Double> notas_disc, List<Integer> creditos) {
 		double soma_total = 0.0;
 		int soma_creditos = 0;
-		for(int i = 0; i < notas_disc.size(); i++){
+		for (int i = 0; i < notas_disc.size(); i++) {
 			soma_total += (notas_disc.get(i)) * (creditos.get(i));
 			soma_creditos += (creditos.get(i));
 		}
-					
-		return soma_total / soma_creditos;
+		if (soma_creditos > 0) {
+			return soma_total / soma_creditos;
+
+		} else {
+			return 0;
+		}
 	}
-		
-	public String leArquivo() throws IOException {
-		notas_disc = new ArrayList<Double>();
-		creditos = new ArrayList<Integer>();
-		BufferedReader in = new BufferedReader ( new FileReader (this.caminho));
+
+	public String leArquivo() throws Exception, IOException {
+
+		BufferedReader in = new BufferedReader(new FileReader(this.caminho));
 		String linha;
 
-		while ( (linha = in.readLine()) != null){
+		while ((linha = in.readLine()) != null) {
 			String nota[] = linha.split(",");
-			int ultimoIndice = nota.length - 1;
-			int penultimoIndice = nota.length - 2;
-			double nota_disc = Double.parseDouble(nota[penultimoIndice]);
-			double creditos = Double.parseDouble(nota[ultimoIndice]);
-			this.notas_disc.add(nota_disc);
-			this.creditos.add((int) creditos);
-			
+			if ((nota.length > 2) && !nota[nota.length - 1].isEmpty() && !nota[nota.length - 2].isEmpty()) {
+				int ultimoIndice = nota.length - 1;
+				int penultimoIndice = nota.length - 2;
+				try {
+					double nota_disc = Double.parseDouble(nota[penultimoIndice]);
+					double creditos = Double.parseDouble(nota[ultimoIndice]);
+					this.notas_disc.add(nota_disc);
+					this.creditos.add((int) creditos);
+				} catch (Exception e) {
+					throw new Exception("Formato da(s) linha(s) invalido." + LINHA + "Inserir:'nome, nota, creditos' em cada linha.");
+				}
+
+			}
+
 		}
 		in.close();
+		if (this.notas_disc.size() == 0 || this.notas_disc.size() == 0) {
+			throw new Exception("Arquivo vazio ou formato da(s) linha(s) invalido."
+					+ LINHA + "Inserir: 'nome, nota, creditos' em cada linha.");
+		}
 		return toString();
 	}
-	
-	public int totalCreditos(){
+
+	public int totalCreditos() {
 		int soma = 0;
-		for(int i = 0; i < creditos.size(); i++){
+		for (int i = 0; i < creditos.size(); i++) {
 			soma += creditos.get(i);
 		}
 		return soma;
 	}
-	
-	public int horas(){
+
+	public int horas() {
 		int soma = 0;
-		for(int i = 0; i < creditos.size(); i++){
+		for (int i = 0; i < creditos.size(); i++) {
 			soma += creditos.get(i) * 15;
 		}
 		return soma;
 	}
-	
-	public String toString(){
+
+	public String toString() {
+
 		String cra = String.format("CRA: %.2f", calculo(this.getNotas_disc(), this.getCreditos()));
-		return "Disciplinas: " + getCreditos().size() + LINHA
-			+ "Total de creditos: " + totalCreditos() + LINHA
-			+ "Total de horas: " + horas() + LINHA
-			+ cra + LINHA;
+		return "Disciplinas: " + getCreditos().size() + LINHA + "Total de creditos: " + totalCreditos() + LINHA
+				+ "Total de horas: " + horas() + LINHA + cra + LINHA;
+
 	}
 
 	public List<Double> getNotas_disc() {
@@ -85,6 +101,5 @@ public class Calcula {
 	public void setCreditos(List<Integer> creditos) {
 		this.creditos = creditos;
 	}
-	
-	
+
 }

@@ -33,14 +33,8 @@ public class Menu extends JFrame implements ActionListener {
 
 	public Menu() {
 		super("Calcula cra | © Tiago Pereira");
-		setSize(700, 450);
-		setVisible(true);
-		setResizable(true);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		this.layout = new CardLayout();
-	
+		
 
 		setLayout(this.layout);
 		this.cards = getContentPane();
@@ -54,6 +48,14 @@ public class Menu extends JFrame implements ActionListener {
 		// Adicionando cards
 		this.layout.show(cards, "inicial");
 		this.cards.add(telaInicial(), "inicial");
+		
+		setSize(500, 250);
+		setVisible(true);
+		setResizable(true);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		
 	}
 
 	private Container telaInicial() {
