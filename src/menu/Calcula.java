@@ -30,7 +30,7 @@ public class Calcula {
 		}
 	}
 
-	// os arrayLists sao inicializados aqui pois se nao forem
+	// os arrayLists sao inicializados aqui pois se forem inicializados no construtor,
 	// a cada solicitacao de calcular cra vai acumular as disciplinas e as notas
 	// gerando um calculo errado
 	public String leArquivo() throws Exception, IOException {
